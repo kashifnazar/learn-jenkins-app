@@ -31,9 +31,15 @@ pipeline {
                 echo 'Testing...'
                 sh '''
                     test -e build/index.html
+
+                    #Running test
                     npm test
                 '''
             }
+        }
+
+        post {
+            junit 'test-results/junit.xml'
         }
     }
 }
