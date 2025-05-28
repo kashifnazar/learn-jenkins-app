@@ -36,10 +36,9 @@ pipeline {
                     npm test
                 '''
             }
-
-            post {
-                junit 'test-results/junit.xml'
-            }
         }
+    }
+    post {
+        junit 'test-results/junit.xml'
     }
 }
