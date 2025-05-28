@@ -12,8 +12,8 @@ pipeline {
                 echo 'Building...'
                 sh '''
                     ls -la
-                    pnpm ci
-                    pnpm run build
+                    npm ci
+                    npm run build
                     ls -la
                 '''
             }
