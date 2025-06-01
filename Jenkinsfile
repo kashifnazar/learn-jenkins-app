@@ -95,6 +95,14 @@ pipeline {
             }
         }
 
+        stage('Input') {
+            steps {
+                timeout(time: 60, unit: 'SECONDS') {
+                    input cancel: 'Not yet', message: 'Ready to deploy?', ok: 'Yes, all good'
+                }   
+            }
+        }
+
         stage('Deploy prod') {
             agent {
                 docker {
@@ -112,14 +120,6 @@ pipeline {
                     echo "Deploying now..."
                     node_modules/.bin/netlify deploy --prod --dir=build
                 '''
-            }
-        }
-
-        stage('Input') {
-            steps {
-                timeout(time: 60, unit: 'SECONDS') {
-                    input cancel: 'Not yet', message: 'Ready to deploy?', ok: 'Yes, all good'
-                }   
             }
         }
 
