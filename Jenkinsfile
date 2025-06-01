@@ -87,6 +87,7 @@ pipeline {
                     npm i netlify-cli@20.1
                     node_modules/.bin/netlify --version
                     echo "Deploying to Project ID: $NETLIFY_PROJECT_ID"
+                    node_modules/.bin/netlify status
                 '''
             }
         }
