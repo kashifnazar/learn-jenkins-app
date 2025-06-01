@@ -61,7 +61,6 @@ pipeline {
                     }
                     steps {
                         sh '''
-                            npm install serve
                             serve -s build &
                             sleep 10
                             npx playwright test
@@ -90,14 +89,13 @@ pipeline {
 
             steps {
                 sh '''
-                    npm i netlify-cli@20.1 node-jq
                     netlify --version
                     echo "Deploying to Project ID: $NETLIFY_SITE_ID to staging"
                     netlify status
 
                     echo "Deploying now..."
                     netlify deploy --dir=build --json > staging-output.json
-                    CI_ENVIRONMENT_URL=$(node-jq -r '.deploy_url' staging-output.json)
+                    CI_ENVIRONMENT_URL=$(jq -r '.deploy_url' staging-output.json)
                     echo ${CI_ENVIRONMENT_URL}
                     npx playwright test
                 '''
@@ -124,7 +122,6 @@ pipeline {
 
             steps {
                 sh '''
-                    npm i netlify-cli@20.1
                     netlify --version
                     echo "Deploying to Project ID: $NETLIFY_SITE_ID to production"
                     netlify status
