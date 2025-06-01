@@ -112,7 +112,7 @@ pipeline {
 
             steps {
                 sh '''
-                    echo ${CI_ENVIRONMENT}
+                    echo ${CI_ENVIRONMENT_URL}
                     npx playwright test
                 '''
             }
