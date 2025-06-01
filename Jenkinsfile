@@ -91,10 +91,10 @@ pipeline {
 
                     echo "Deploying now..."
                     node_modules/.bin/netlify deploy --dir=build --json > staging-output.json
-                    script {
-                        env.DEPLOY_ID = sh(script: "node_modules/.bin/node-jq -r '.deploy_id' staging-output.json", returnStdout: true)
-                    }
                 '''
+                script {
+                    env.STAGING_URL = sh(script: "node_modules/.bin/node-jq -r '.deploy_url' staging-output.json", returnStdout: true)
+                }
             }
         }
 
@@ -107,7 +107,7 @@ pipeline {
             }
 
             environment {
-                CI_ENVIRONMENT_URL = "https://${env.DEPLOY_ID}deluxe-axolotl-4d9d45.netlify.app"
+                CI_ENVIRONMENT_URL = "${env.STAGING_URL}"
             }
 
             steps {
