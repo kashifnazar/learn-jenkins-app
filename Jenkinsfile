@@ -87,8 +87,9 @@ pipeline {
                 sh '''
                     npm i netlify-cli@20.1
                     node_modules/.bin/netlify --version
-                    echo "Deploying to Project ID: $NETLIFY_PROJECT_ID"
+                    echo "Deploying to Project ID: $NETLIFY_SITE_ID"
                     node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --prod --dir=build
                 '''
             }
         }
