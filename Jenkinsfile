@@ -84,13 +84,14 @@ pipeline {
             }
             steps {
                 sh '''
-                    npm i netlify-cli@20.1
+                    npm i netlify-cli@20.1 node-jq
                     node_modules/.bin/netlify --version
                     echo "Deploying to Project ID: $NETLIFY_SITE_ID to staging"
                     node_modules/.bin/netlify status
 
                     echo "Deploying now..."
-                    node_modules/.bin/netlify deploy --dir=build
+                    node_modules/.bin/netlify deploy --dir=build --json > staging-output.json
+                    node_modules/.bin/node-jq -r '.deploy_id' staging-output.json
                 '''
             }
         }
