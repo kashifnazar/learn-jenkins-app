@@ -112,13 +112,13 @@ pipeline {
 
             steps {
                 sh '''
-                    echo ${CI_ENVIRONMENT_URL}
+                    echo ${CI_ENVIRONMENT}
                     npx playwright test
                 '''
             }
             post {
                 always{
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright Prod', reportTitles: '', useWrapperFileDirectly: true])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright Staging', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }
         }
