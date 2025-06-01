@@ -131,13 +131,6 @@ pipeline {
             }
         }
 
-        stage('Approval') {
-            steps {
-                timeout(time: 15, unit: 'MINUTES') {
-                    input cancel: 'Not yet', message: 'Ready to deploy?', ok: 'Yes, all good'
-                }   
-            }
-        }
 
         stage('Prod deploy + e2e') {
             agent {
