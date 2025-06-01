@@ -92,7 +92,7 @@ pipeline {
                     echo "Deploying now..."
                     node_modules/.bin/netlify deploy --dir=build --json > staging-output.json
                     script {
-                        env.DEPLOY_ID = sh(script: 'node_modules/.bin/node-jq -r '.deploy_id' staging-output.json', returnStdout)
+                        env.DEPLOY_ID = sh(script: "node_modules/.bin/node-jq -r '.deploy_id' staging-output.json", returnStdout: true)
                     }
                 '''
             }
