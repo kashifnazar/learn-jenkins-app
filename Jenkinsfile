@@ -4,7 +4,7 @@ pipeline {
     environment {
         NETLIFY_SITE_ID = 'fa31df91-32ab-4b10-91c1-8268accec9c7'
         NETLIFY_AUTH_TOKEN = credentials('netlify')
-        REACT_APP_VERSION = '1.2.3'
+        REACT_APP_VERSION = "1.0.${BUILD_ID}"
     }
 
     stages {
@@ -75,29 +75,6 @@ pipeline {
                 }
             }
         }
-
-        // stage('Deploy staging') {
-        //     agent {
-        //         docker {
-        //             image 'node:18-alpine' 
-        //             reuseNode true
-        //         }
-        //     }
-        //     steps {
-        //         sh '''
-        //             npm i netlify-cli@20.1 node-jq
-        //             node_modules/.bin/netlify --version
-        //             echo "Deploying to Project ID: $NETLIFY_SITE_ID to staging"
-        //             node_modules/.bin/netlify status
-
-        //             echo "Deploying now..."
-        //             node_modules/.bin/netlify deploy --dir=build --json > staging-output.json
-        //         '''
-        //         script {
-        //             env.STAGING_URL = sh(script: "node_modules/.bin/node-jq -r '.deploy_url' staging-output.json", returnStdout: true)
-        //         }
-        //     }
-        // }
 
         stage('Deploy staging + e2e') {
             agent {
