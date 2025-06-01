@@ -116,8 +116,10 @@ pipeline {
         }
 
         stage('Input') {
-            timeout(time: 60, unit: 'SECONDS') {
-                input cancel: 'Not yet', message: 'Ready to deploy?', ok: 'Yes, all good'
+            steps {
+                timeout(time: 60, unit: 'SECONDS') {
+                    input cancel: 'Not yet', message: 'Ready to deploy?', ok: 'Yes, all good'
+                }   
             }
         }
 
