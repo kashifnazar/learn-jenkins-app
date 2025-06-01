@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        NETLIFY_PROJECT_ID = 'fa31df91-32ab-4b10-91c1-8268accec9c7'
+    }
+
     stages {
         stage('Build') {
             agent {
@@ -67,6 +71,23 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:18-alpine' 
+                    reuseNode true
+                }
+            }
+            steps {
+                echo 'Deploying...'
+                sh '''
+                    npm i netlify-cli@20.1
+                    node_modules/.bin/netlify --version
+                    echo "Deploying to Project ID: $NETLIFY_PROJECT_ID"
+                '''
             }
         }
     }
